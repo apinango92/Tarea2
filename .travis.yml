@@ -17,7 +17,7 @@ script:
   - bundle exec rake db:test:prepare
 #  - bundle exec rspec spec/
 bundler_args: --binstubs=./bundler_stubs
-#after_success:
+#after_success
 deploy:
   provider: heroku
   api_key: 766421a7-a7c9-4fab-9959-dcc395470440
