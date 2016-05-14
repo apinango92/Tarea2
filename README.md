@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/apinango92/Tarea2.svg?branch=master)](https://travis-ci.org/apinango92/Tarea2)
+[![Coverage Status](https://coveralls.io/repos/apinango92/Tarea2/badge.svg?branch=master)](https://coveralls.io/r/<account>/<repository>?branch=master)
 # ruby-getting-started
 
 A barebones Rails app, which can easily be deployed to Heroku.
@@ -65,4 +67,3 @@ You can also use Docker to release to Heroku:
 For more information about using Ruby on Heroku, see these Dev Center articles:
 
 - [Ruby on Heroku](https://devcenter.heroku.com/categories/ruby)
-
