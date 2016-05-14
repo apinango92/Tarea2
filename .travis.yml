@@ -1,27 +1,25 @@
 language: ruby
 services:
-  - postgresql
+- postgresql
 rvm:
-  - 2.3.0
+- 2.3.0
 env:
-  - DB=postgresql
+- DB=postgresql
 before_script:
-  - psql -c 'create database T2_development;' -U postgres
-  - psql -c 'create database T2_testing;' -U postgres
-  - psql -c 'create database T2_production;' -U postgres
+- psql -c 'create database T2_development;' -U postgres
+- psql -c 'create database T2_testing;' -U postgres
+- psql -c 'create database T2_production;' -U postgres
 script:
-  - bundle exec rake db:create --trace
-  - bundle exec rake db:migrate --trace
-  - RAILS_ENV=test bundle exec rake db:create --trace
-  - RAILS_ENV=test bundle exec rake db:migrate --trace
-  - bundle exec rake db:test:prepare
-#  - bundle exec rspec spec/
-bundler_args: --binstubs=./bundler_stubs
-#after_success
+- bundle exec rake db:create --trace
+- bundle exec rake db:migrate --trace
+- RAILS_ENV=test bundle exec rake db:create --trace
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:test:prepare
+bundler_args: "--binstubs=./bundler_stubs"
 deploy:
   provider: heroku
-  api_key: 766421a7-a7c9-4fab-9959-dcc395470440
-    secure: aRYEA7YYkK0IndeOdFb+4uZMTFRMcAlGP6jbwdIez7lgYxP42mGk29fxcnMx2Oa54HrkAJvZEfLTLX3eL5lw0AlRpdTNSNGIcRVUpNNNYWTHJban4v7XMdl9HtsEHcTirC84nTSviuhkfBKSEUtzRl3c6YvbKF2+vTTlMwNCzniCcfj6rmZWN9dr/dSmOKrocBxvXLv/5e4WwQ9xcQcI4wQNPYoIpzc0RrQxcwSUO/v+SGtXuZXCQiFUhO9FFRRS3Iw61efLrCljX0EaTDo4wYbvXE85NbY8g0WSHdWSVh+cbxDd0JKOcawgY7dJBfz5SD1Ib6p78fxNV2WOsdEjszM64j55FNxGCfFmqWRAwMxFx+TbkoWAABy2zdjblM4Sivx/27vCyvdy5MYIkpMqf84t1gRPBxIYC4hQU3eHPlONsMg4Ie21MUBDKu1O3cMUVOCuU38uWL6QrR4/QOMCPlqOtDkpWGxeNiyG+JzQE/qQZcv6wfiR3+4lyk74JZrI8mjvEXTnkFs//1HrLHWIOfEqL+vUEjtZyDsfBz1CEMNtGPyipLJr/KZUg3TJSRW7UIwYvqmKv3Km1WgxIZTEXdAEEqMdaXZq38e5z0a3pK4/AqKsNp0lShp9nMk48nglE1/16U1bJj9Zq0EnTKEx4Dl+O6t6B3oFb+ogTHqpYg0=
+  api_key:
+    secure: EAMp5OxmuF5ekWaWbM5boyNzgRH59prFp1H6VoSTCwKHOE6t4qRuxM/4JDRDhj0lshrlRYetjNiCtKNpQ9svbgVXtXIMtCakJAgJb69xEC0+GL5wicyMR6myy6nf1m3OJ4f8iz3NuV9bKjrQzn/hVMDRxtPo4fxb+cZJAn+0zdi9aC++NJ27hlVQspTRtaBd8vsx2r+WVYEVaHRnvIm+1sgn6pZBOABM/Iujt9GpGMZHRTsEC86x6wf5Myp8RUFU3MP4W1VGEiqChz+hq++uTDKQXygzU6Ll/eXEAI6EfvNE915qtDQEgPW9t4ZWczj2p5x+uicelCtfaYRd6Y9yhbTZCQa+JjPbiUaexk3hREeSMDVRyIdnmOEOKK8CADJDvXg/VhSJI/HMdWOeXaatXypQTej3l2l66f19CYoSG8HjQxadWsyH6HiWGe4n7iN93Kz0XsTIYwfvPh+iUyuUtUJECDU1BGGU9a9S/Czn688ivpk1PyIiK8dHeBMebxYcyHqLp9Stq6UKCzL0wsSDHvc6PFXEXfRUbaeRglPrpgUAUtCPFeBPtsknDCnBMN6rM82JLlPAfNj0DbAHHGWt9kqtKIRk4wihz4RgpjiabhIQA7velPNyWeFx4aoVKUbOAD8mIk8CJpFOQObvvLdh1YjeaOQnRBmlAtqCr9k1LQA=
   app: polar-garden-22411
   on:
     repo: apinango92/Tarea2
