@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
       puts likes[0]
       puts url[0]
       puts caption[0]
-      final = {:metadata =>{:total => total}, :posts =>postArray }
+      final = {:metadata =>{:total => total}, :posts =>postArray , :version => '1.0.1'}
         render json: final.to_json, status: 200
       rescue Exception => e
         exception = ''
