@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.3.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'coveralls', require: false
 gem 'rails', '4.2.6'
 gem 'rest-client'
 # Use postgresql as the database for Active Record

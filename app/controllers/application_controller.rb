@@ -1,3 +1,5 @@
+require 'coveralls'
+Coveralls.wear!
 require 'base64'
 require 'openssl'
 require 'nokogiri'
