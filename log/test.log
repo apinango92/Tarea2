@@ -1,0 +1,214 @@
+  [1m[36m (107.6ms)[0m  [1mDROP DATABASE IF EXISTS "ruby-getting-started_test"[0m
+  [1m[35m (479.3ms)[0m  CREATE DATABASE "ruby-getting-started_test" ENCODING = 'unicode'
+  [1m[36mSQL (0.5ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (25.0ms)[0m  CREATE TABLE "widgets" ("id" serial primary key, "name" character varying, "description" text, "stock" integer, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (13.1ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (12.8ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36m (0.8ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (3.0ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140707111715')
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "widgets" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "widgets"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "widgets" ("name", "description", "stock", "created_at", "updated_at", "id") VALUES ('MyString', 'MyText', 1, '2016-05-15 18:12:01', '2016-05-15 18:12:01', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "widgets" ("name", "description", "stock", "created_at", "updated_at", "id") VALUES ('MyString', 'MyText', 1, '2016-05-15 18:12:01', '2016-05-15 18:12:01', 298486374)
+  [1m[36m (2.0ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "widgets" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------
+WidgetsControllerTest: test_should_create_widget
+------------------------------------------------
+  [1m[35mWidget Load (0.4ms)[0m  SELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "widgets"[0m
+Processing by WidgetsController#create as HTML
+  Parameters: {"widget"=>{"description"=>"MyText", "name"=>"MyString", "stock"=>"1"}}
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "widgets" ("name", "description", "stock", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "MyString"], ["description", "MyText"], ["stock", 1], ["created_at", "2016-05-15 18:12:01.620830"], ["updated_at", "2016-05-15 18:12:01.620830"]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/widgets/980190963
+Completed 302 Found in 6ms (ActiveRecord: 0.4ms)
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "widgets"[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------------
+WidgetsControllerTest: test_should_destroy_widget
+-------------------------------------------------
+  [1m[35mWidget Load (0.2ms)[0m  SELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "widgets"[0m
+Processing by WidgetsController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mWidget Load (0.2ms)[0m  SELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  DELETE FROM "widgets" WHERE "widgets"."id" = $1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/widgets
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms)
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM "widgets"
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------------------
+WidgetsControllerTest: test_should_get_edit
+-------------------------------------------
+  [1m[36mWidget Load (0.1ms)[0m  [1mSELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+Processing by WidgetsController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mWidget Load (0.2ms)[0m  SELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1  [["id", 980190962]]
+  Rendered widgets/_form.html.erb (25.6ms)
+  Rendered widgets/edit.html.erb within layouts/application (29.9ms)
+Completed 200 OK in 236ms (Views: 235.2ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+--------------------------------------------
+WidgetsControllerTest: test_should_get_index
+--------------------------------------------
+  [1m[36mWidget Load (0.5ms)[0m  [1mSELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+Processing by WidgetsController#index as HTML
+  [1m[35mWidget Load (0.4ms)[0m  SELECT "widgets".* FROM "widgets"
+  Rendered widgets/index.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 5ms (Views: 4.3ms | ActiveRecord: 0.4ms)
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+------------------------------------------
+WidgetsControllerTest: test_should_get_new
+------------------------------------------
+  [1m[36mWidget Load (0.4ms)[0m  [1mSELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+Processing by WidgetsController#new as HTML
+  Rendered widgets/_form.html.erb (2.5ms)
+  Rendered widgets/new.html.erb within layouts/application (3.3ms)
+Completed 200 OK in 6ms (Views: 5.9ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.4ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+----------------------------------------------
+WidgetsControllerTest: test_should_show_widget
+----------------------------------------------
+  [1m[35mWidget Load (0.2ms)[0m  SELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1  [["id", 980190962]]
+Processing by WidgetsController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mWidget Load (0.2ms)[0m  [1mSELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  Rendered widgets/show.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 4ms (Views: 3.5ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------
+WidgetsControllerTest: test_should_update_widget
+------------------------------------------------
+  [1m[35mWidget Load (0.4ms)[0m  SELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1  [["id", 980190962]]
+Processing by WidgetsController#update as HTML
+  Parameters: {"widget"=>{"description"=>"MyText", "name"=>"MyString", "stock"=>"1"}, "id"=>"980190962"}
+  [1m[36mWidget Load (0.2ms)[0m  [1mSELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/widgets/980190962
+Completed 302 Found in 3ms (ActiveRecord: 0.4ms)
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+------------------------------------------------
+ApplicationControllerTest: test_should_get_index
+------------------------------------------------
+Processing by ApplicationController#tag as HTML
+  Parameters: {"tag"=>"casa", "access_token"=>"2019746130.59a3f2b.86a0135240404ed5b908a14c0a2d9402"}
+Completed 200 OK in 1280ms (Views: 0.3ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "widgets" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "widgets"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "widgets" ("name", "description", "stock", "created_at", "updated_at", "id") VALUES ('MyString', 'MyText', 1, '2016-05-15 18:12:20', '2016-05-15 18:12:20', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "widgets" ("name", "description", "stock", "created_at", "updated_at", "id") VALUES ('MyString', 'MyText', 1, '2016-05-15 18:12:20', '2016-05-15 18:12:20', 298486374)
+  [1m[36m (2.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "widgets" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+------------------------------------------------
+ApplicationControllerTest: test_should_get_index
+------------------------------------------------
+Processing by ApplicationController#tag as HTML
+  Parameters: {"tag"=>"casa", "access_token"=>"2019746130.59a3f2b.86a0135240404ed5b908a14c0a2d9402"}
+Completed 200 OK in 1782ms (Views: 0.4ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+------------------------------------------------
+WidgetsControllerTest: test_should_create_widget
+------------------------------------------------
+  [1m[35mWidget Load (0.5ms)[0m  SELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.5ms)[0m  [1mSELECT COUNT(*) FROM "widgets"[0m
+Processing by WidgetsController#create as HTML
+  Parameters: {"widget"=>{"description"=>"MyText", "name"=>"MyString", "stock"=>"1"}}
+  [1m[35m (0.3ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "widgets" ("name", "description", "stock", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "MyString"], ["description", "MyText"], ["stock", 1], ["created_at", "2016-05-15 18:12:21.904646"], ["updated_at", "2016-05-15 18:12:21.904646"]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/widgets/980190963
+Completed 302 Found in 11ms (ActiveRecord: 0.9ms)
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "widgets"[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-------------------------------------------------
+WidgetsControllerTest: test_should_destroy_widget
+-------------------------------------------------
+  [1m[35mWidget Load (0.5ms)[0m  SELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "widgets"[0m
+Processing by WidgetsController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mWidget Load (0.5ms)[0m  SELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  DELETE FROM "widgets" WHERE "widgets"."id" = $1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/widgets
+Completed 302 Found in 7ms (ActiveRecord: 1.2ms)
+  [1m[35m (0.6ms)[0m  SELECT COUNT(*) FROM "widgets"
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------------------------
+WidgetsControllerTest: test_should_get_edit
+-------------------------------------------
+  [1m[36mWidget Load (0.5ms)[0m  [1mSELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+Processing by WidgetsController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mWidget Load (0.5ms)[0m  SELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1  [["id", 980190962]]
+  Rendered widgets/_form.html.erb (25.4ms)
+  Rendered widgets/edit.html.erb within layouts/application (33.3ms)
+Completed 200 OK in 232ms (Views: 229.7ms | ActiveRecord: 0.5ms)
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+--------------------------------------------
+WidgetsControllerTest: test_should_get_index
+--------------------------------------------
+  [1m[36mWidget Load (0.6ms)[0m  [1mSELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+Processing by WidgetsController#index as HTML
+  [1m[35mWidget Load (0.6ms)[0m  SELECT "widgets".* FROM "widgets"
+  Rendered widgets/index.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 5ms (Views: 4.5ms | ActiveRecord: 0.6ms)
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+------------------------------------------
+WidgetsControllerTest: test_should_get_new
+------------------------------------------
+  [1m[36mWidget Load (0.2ms)[0m  [1mSELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+Processing by WidgetsController#new as HTML
+  Rendered widgets/_form.html.erb (2.3ms)
+  Rendered widgets/new.html.erb within layouts/application (3.1ms)
+Completed 200 OK in 12ms (Views: 11.9ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+----------------------------------------------
+WidgetsControllerTest: test_should_show_widget
+----------------------------------------------
+  [1m[35mWidget Load (0.2ms)[0m  SELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1  [["id", 980190962]]
+Processing by WidgetsController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mWidget Load (0.3ms)[0m  [1mSELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  Rendered widgets/show.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 11ms (Views: 9.1ms | ActiveRecord: 0.3ms)
+  [1m[35m (0.4ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+------------------------------------------------
+WidgetsControllerTest: test_should_update_widget
+------------------------------------------------
+  [1m[35mWidget Load (0.2ms)[0m  SELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1  [["id", 980190962]]
+Processing by WidgetsController#update as HTML
+  Parameters: {"widget"=>{"description"=>"MyText", "name"=>"MyString", "stock"=>"1"}, "id"=>"980190962"}
+  [1m[36mWidget Load (0.2ms)[0m  [1mSELECT  "widgets".* FROM "widgets" WHERE "widgets"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/widgets/980190962
+Completed 302 Found in 5ms (ActiveRecord: 0.6ms)
+  [1m[35m (0.2ms)[0m  ROLLBACK
