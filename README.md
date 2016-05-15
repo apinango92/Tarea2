@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/apinango92/Tarea2.svg?branch=master)](https://travis-ci.org/apinango92/Tarea2)
-[![Coverage Status](https://coveralls.io/repos/apinango92/Tarea2/badge.svg?branch=master)](https://coveralls.io/r/apinango92/Tarea2?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/apinango92/Tarea2/badge.svg?branch=master)](https://coveralls.io/github/apinango92/Tarea2?branch=master)
 
 # ruby-getting-started
 
