@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :widgets
   post '/instagram/tag/buscar' => 'application#tag'
-  post '/instagram/tag/' => 'slack_controller#start'
+  post '/instagram/tag/' => 'application#start'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

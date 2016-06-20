@@ -2,6 +2,7 @@ require 'http'
 require 'json'
 require 'eventmachine'
 require 'faye/websocket'
+require 'trollop'
 gem 'google-api-client', '<0.9'
 require 'google/api_client'
 
@@ -71,39 +72,39 @@ def main(busqueda)
     puts e.result.body
   end
 end
+def start
+  rc = HTTP.post("https://slack.com/api/rtm.start", params:{
+    token: 'SLACK_API_TOKEN'
+    })
+  rc = JSON.parse(rc.body)
+  #puts rc
+  url = rc['url']
 
-rc = HTTP.post("https://slack.com/api/rtm.start", params:{
-  token: SLACK_API_TOKEN
-  })
-rc = JSON.parse(rc.body)
-#puts rc
-url = rc['url']
+  EM.run do
+    ws = Faye::WebSocket::Client.new(url)
+    ws.on :open do
+      p [:open]
+    end
 
-EM.run do
-  ws = Faye::WebSocket::Client.new(url)
-  ws.on :open do
-    p [:open]
-  end
+    ws.on :message do |event|
+      #puts main
+      puts 'entre'
+      p [:message, JSON.parse(event.data)]
+      data = JSON.parse(event.data)
+      if data['text'] != nil
+        ws.send({type:'message',
+          text: "5 videos con la palabra clave son: \n" + main(data['text']),
+          channel: data['channel'] }.to_json )
+      end
+    end
 
-  ws.on :message do |event|
-    #puts main
-    puts 'entre'
-    p [:message, JSON.parse(event.data)]
-    data = JSON.parse(event.data)
-    if data['text'] != nil
-      ws.send({type:'message',
-        text: "5 videos con la palabra clave son: \n" + main(data['text']),
-        channel: data['channel'] }.to_json )
+    ws.on :close do
+      p [:close, event.code]
+      ws = nil
+      EM.stop
     end
   end
-
-  ws.on :close do
-    p [:close, event.code]
-    ws = nil
-    EM.stop
-  end
 end
-
 =begin
       DEVELOPER_KEY = 'AIzaSyAex_E6FGQVwPSc7owkYh0T_bWYkbQJhaY' #'REPLACE_ME'
       YOUTUBE_API_SERVICE_NAME = 'youtube'
