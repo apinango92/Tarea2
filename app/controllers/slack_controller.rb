@@ -1,14 +1,3 @@
-require 'base64'
-require 'openssl'
-require 'nokogiri'
-require 'rest-client'
-require 'json'
-require 'trollop'
-require 'slack-ruby-client'
-require 'http'
-require 'eventmachine'
-require 'faye/websocket'
-#require 'celluloid/current
 require 'http'
 require 'json'
 require 'eventmachine'
@@ -84,9 +73,10 @@ def main(busqueda)
 end
 
 rc = HTTP.post("https://slack.com/api/rtm.start", params:{
-  token: 'xoxb-52286720133-FwF6uGjRKheF8eVev90YPPIh'
+  token: SLACK_API_TOKEN
   })
 rc = JSON.parse(rc.body)
+#puts rc
 url = rc['url']
 
 EM.run do
@@ -97,6 +87,7 @@ EM.run do
 
   ws.on :message do |event|
     #puts main
+    puts 'entre'
     p [:message, JSON.parse(event.data)]
     data = JSON.parse(event.data)
     if data['text'] != nil
