@@ -29,7 +29,7 @@ development:
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user that initialized the database.
-  #username: ruby-getting-started
+  username: pinango
 
   # The password associated with the postgres role (username).
   #password:
@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: ruby-getting-started_production
-  username: ruby-getting-started
+  username: pinango
   password: <%= ENV['RUBY-GETTING-STARTED_DATABASE_PASSWORD'] %>
